@@ -6,7 +6,8 @@ inputdir=$path/01_Trimmomatic
 outdir=$path/02_BWA
 
 mkdir -p $outdir
-
-bwa mem -M -t 3 -R '@RG\tID:Sample\tLB:Sample\tPL:ILLUMINA\tPM:HISEQ2500\tSM:Sample' \
+Tumor_sample
+Normal_sample
+bwa mem -M -t 3 -R '@RG\tID:Sample\tLB:Sample\tPL:ILLUMINA\tPM:HISEQ2500\tPU:Patient16\tSM:Sample' \
 $ref $inputdir/ERR2303645_R1_P.fastq $inputdir/ERR2303645_R2_P.fastq > $outdir/Normal.sam
 

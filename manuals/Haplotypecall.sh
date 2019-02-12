@@ -9,5 +9,5 @@ outdir=$path/07_Haplotypecall
 mkdir -p $outdir
 
 $gatk HaplotypeCaller -I $inputdir/Normal_dedup_bqsr.bam \
--O $outdir/Normal_haplocall.g.vcf --emit-ref-confidence GVCF \
+-O $outdir/Normal_haplocall.vcf --emit-ref-confidence GVCF \
 -R $hg38_bundle/hg38.fa
