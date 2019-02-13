@@ -1,17 +1,30 @@
 #!/bin/bash
 
-path='/home/00_TeamProject/01_WES_Normal'
-inputdir='/home/00_TeamProject/00_raw_data/02_Normal'
-filename='ERR2303645'
-trimmomatic='/home/greatitem/tool/Trimmomatic-0.36'
-outdir=$path/01_Trimmomatic
+echo "You need to assign your sample type (Normal or Tumor)."
 
-mkdir -p $outdir
+if [ ${1} = "Normal" ] || [ ${1} = "Tumor" ]
+then
+    if [ ${1} = "Normal" ]
+    then
+        sra_num="ERR2303645"
+    else
+        sra_num="ERR2303647"
+    fi
 
-# Trimmomatic
-java -jar $trimmomatic/trimmomatic-0.36.jar PE \
-$inputdir/$filename'_1.fastq' $inputdir/$filename'_2.fastq' \
-$outdir/$filename'_R1_P.fastq' $outdir/$filename'_R1_U.fastq' \
-$outdir/$filename'_R2_P.fastq' $outdir/$filename'_R2_U.fastq' \
-ILLUMINACLIP:$trimmomatic/adapters/TruSeq3-PE-2.fa:2:30:10 \
-LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:80
+    path=/home/00_TeamProject/01_WES_${1}
+    inputdir=/home/00_TeamProject/00_raw_data/WES_${1}
+    trimmomatic=/home/greatitem/tool/Trimmomatic-0.36
+    outdir=${path}/01_Trimmomatic
+    
+    mkdir -p ${outdir}
+    
+    # Trimmomatic
+    java -jar ${trimmomatic}/trimmomatic-0.36.jar PE \
+    ${inputdir}/${sra_num}_1.fastq ${inputdir}/${sra_num}_2.fastq \
+    ${outdir}/${sra_num}_R1_P.fastq ${outdir}/${sra_num}_R1_U.fastq \
+    ${outdir}/${sra_num}_R2_P.fastq ${outdir}/${sra_num}_R2_U.fastq \
+    ILLUMINACLIP:${trimmomatic}/adapters/TruSeq3-PE-2.fa:2:30:10 \
+    LEADING:3 TRAILING:3 SLIDINGWINDOW:4:15 MINLEN:80
+else
+    echo "sample type error."
+fi

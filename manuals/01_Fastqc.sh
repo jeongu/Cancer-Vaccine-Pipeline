@@ -1,12 +1,26 @@
-#!/bin/bash
+#!/bin/basih
 
-path=/home/00_TeamProject/01_WES_$1
-inputdir=/home/00_TeamProject/00_raw_data/WES_$1
-fastqc='/home/greatitem/tool/FastQC-0.11.8/fastqc'
-outdir=$path/00_FASTQC
+echo "You need to assign your sample type (Normal or Tumor)."
 
-mkdir -p $outdir
-
-# fastqc
-$fastqc –t 2 –o $outdir $inputdir/$2
-$fastqc –t 2 –o $outdir $inputdir/$3
+if [ ${1} = "Normal" ] || [ ${1} = "Tumor" ]
+then
+    if [ ${1} = "Normal" ]
+    then
+        sra_num="ERR2303645"
+    else
+        sra_num="ERR2303647"
+    fi
+    
+    path=/home/00_TeamProject/01_WES_${1}
+    inputdir=/home/00_TeamProject/00_raw_data/WES_${1}
+    fastqc=/home/greatitem/tool/FastQC-0.11.8/fastqc
+    outdir=${path}/00_FASTQC
+    
+    mkdir -p ${outdir}
+    
+    # fastqc
+    ${fastqc} –t 2 –o ${outdir} ${inputdir}/${sra_num}_1.fastq
+    ${fastqc} –t 2 –o ${outdir} ${inputdir}/${sra_num}_2.fastq
+else
+    echo "sample type error."
+fi
