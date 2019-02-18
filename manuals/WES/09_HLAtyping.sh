@@ -13,3 +13,5 @@ mkdir -p ${outdir}
 ### Predict HLA
 echo "Predicting HLA..."
 ${hlaminer} -a ${outdir}/Normal.sam -e 0 -h ${hla_ref} -p ${hla_pd} -z 200 -i 99 -q 30 -s 500 -n 0
+
+
