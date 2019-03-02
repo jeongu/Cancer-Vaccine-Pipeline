@@ -1,9 +1,9 @@
 import sys
 import re
 
-if len(sys.argv) != 3 :
+if len(sys.argv) != 2 :
     print ('#########################################################################################')
-    print ('python 06_remove_same_pos.py /home/01_Neoantigen/02_VariantCall/05_union/vcf_union.vcf') 
+    print ('python 06_remove_same_pos.py /home/01_Neoantigen/02_VariantCall/05_union/vcf_union_normalized_vt.vcf') 
     print ('#########################################################################################')
     exit()
 
